@@ -107,6 +107,7 @@ impl UffdBuilder {
         if self.non_blocking {
             flags |= libc::O_NONBLOCK;
         }
+        flags |= 1; // UFFD_USER_MODE_ONLY
         let fd = Errno::result(unsafe { raw::userfaultfd(flags) })?;
 
         // then do the UFFDIO_API ioctl to set up and ensure features and other ioctls are available
